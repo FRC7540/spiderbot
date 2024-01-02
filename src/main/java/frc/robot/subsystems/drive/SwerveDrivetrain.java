@@ -36,14 +36,14 @@ public class SwerveDrivetrain extends SubsystemBase {
   private final SwerveModule m_backRight = new SwerveModule(Constants.kRearRightDrive, Constants.kRearRightTurning,
       "BackRight", "BR");
 
-  private final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+  //private final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 
   private final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
       m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
 
   public SwerveDrivetrain() {
     // Reset gyro when drivetrain is initialized
-    m_gyro.reset();
+    // m_gyro.reset();
   }
 
   /**
@@ -56,10 +56,11 @@ public class SwerveDrivetrain extends SubsystemBase {
    *                      field.
    */
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
-    SwerveModuleState[] swerveModuleStates = m_kinematics.toSwerveModuleStates(
-        fieldRelative
-            ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, m_gyro.getRotation2d())
-            : new ChassisSpeeds(xSpeed, ySpeed, rot));
+    // SwerveModuleState[] swerveModuleStates = m_kinematics.toSwerveModuleStates(
+    //     fieldRelative
+    //         ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, m_gyro.getRotation2d())
+    //         : new ChassisSpeeds(xSpeed, ySpeed, rot));
+        SwerveModuleState[] swerveModuleStates = m_kinematics.toSwerveModuleStates(new ChassisSpeeds(xSpeed, ySpeed, rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.kMaxSpeed);
     m_frontLeft.setDesiredState(swerveModuleStates[0]);
     m_frontRight.setDesiredState(swerveModuleStates[1]);
@@ -78,12 +79,12 @@ public class SwerveDrivetrain extends SubsystemBase {
   @Override
   public void periodic() {
 
-    SmartDashboard.putNumber("Gyro Yaw", m_gyro.getYaw());
-    SmartDashboard.putNumber("Gyro Angle", m_gyro.getAngle());
-    SmartDashboard.putNumber("Gyro AngleAdjustment", m_gyro.getAngleAdjustment());
-    SmartDashboard.putNumber("Gyro Compass", m_gyro.getCompassHeading());
-    SmartDashboard.putBoolean("Disturbance", m_gyro.isMagneticDisturbance());
-    SmartDashboard.putBoolean("Callibrated", m_gyro.isMagnetometerCalibrated());
+    // SmartDashboard.putNumber("Gyro Yaw", m_gyro.getYaw());
+    // SmartDashboard.putNumber("Gyro Angle", m_gyro.getAngle());
+    // SmartDashboard.putNumber("Gyro AngleAdjustment", m_gyro.getAngleAdjustment());
+    // SmartDashboard.putNumber("Gyro Compass", m_gyro.getCompassHeading());
+    // SmartDashboard.putBoolean("Disturbance", m_gyro.isMagneticDisturbance());
+    // SmartDashboard.putBoolean("Callibrated", m_gyro.isMagnetometerCalibrated());
 
     m_frontLeft.displayDashboard();
     m_frontRight.displayDashboard();
@@ -92,6 +93,6 @@ public class SwerveDrivetrain extends SubsystemBase {
   }
 
   public void resetGyro() {
-    m_gyro.reset();
+    // m_gyro.reset();
   }
 }

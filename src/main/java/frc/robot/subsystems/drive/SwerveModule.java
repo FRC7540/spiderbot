@@ -58,10 +58,7 @@ public class SwerveModule {
         m_prefsName = prefsName;
         m_dashAbv = dashAbv;
 
-        if (driveMotorChannel == Constants.kRearRightDrive)
-            m_driveMotor = new WPI_VictorSPX(driveMotorChannel);
-        else
-            m_driveMotor = new WPI_TalonSRX(driveMotorChannel);
+        m_driveMotor = new WPI_TalonSRX(driveMotorChannel);
 
         m_turningMotor = new WPI_TalonSRX(turningMotorChannel);
         m_turningMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 10);
