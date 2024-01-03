@@ -27,7 +27,7 @@ public class SwerveModule {
     // JWG talon SRX raw encoder position needs to be converted to radians for
     // Rotation2d
     // private static final double kTicksPerDegree = kEncoderResolution / 360;
-    private MotorController m_driveMotor;
+    private WPI_TalonSRX m_driveMotor;
     private WPI_TalonSRX m_turningMotor;
 
     // TODO: FIXME: IMPORTANT: Adjust gains for spiderbot
@@ -117,7 +117,6 @@ public class SwerveModule {
         // voltage
         m_driveMotor.setVoltage(driveOutput * Constants.kDriveSpeedVoltageModifier);
         m_turningMotor.setVoltage(turnOutput);
-
     }
 
     public void displayDashboard() {
